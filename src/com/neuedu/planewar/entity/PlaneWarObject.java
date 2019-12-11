@@ -1,5 +1,7 @@
 package com.neuedu.planewar.entity;
 
+import com.neuedu.planewar.client.PlanWarClient;
+
 import java.awt.*;
 
 /**
@@ -19,6 +21,8 @@ public abstract class PlaneWarObject implements Moveable,Drawable{
     //速度
     public int speed;
 
+    public  PlanWarClient pwc;
+
     /**
      * 重写Moveable接口中的move方法
      */
@@ -32,5 +36,9 @@ public abstract class PlaneWarObject implements Moveable,Drawable{
     @Override
     public void draw(Graphics g){
 
+    }
+
+    public Rectangle getRectangle(){
+        return new Rectangle(x,y,width,height);
     }
 }
