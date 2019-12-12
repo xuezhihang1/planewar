@@ -25,7 +25,7 @@ public class ImageUtil {
             images.put("bullet0"+(i+1),FrameUtil.getImage(Constant.IMG_PATH_PRE+"myplane/bullet/0"+(i+1)+".png"));
         }
         //敌方飞机的图片
-        for (int i=0;i<4;i++){
+        for (int i=0;i<3;i++){
             images.put("EnemyPlane_0"+(i+1),FrameUtil.getImage(Constant.IMG_PATH_PRE+"enemyplane/EnemyPlane_0"+(i+1)+".png"));
         }
         for (int i = 0; i < 5; i++) {
@@ -39,6 +39,11 @@ public class ImageUtil {
         //Boss图片
         for (int i = 0;i < 2;i++){
             images.put("boss0"+(i+1),FrameUtil.getImage(Constant.IMG_PATH_PRE+"boss/boss0"+(i+1)+".png"));
+        }
+        //Boss子弹图片
+        for (int i = 0; i < 3; i++) {
+            images.put("boss_bullet0"+(i+1),FrameUtil.getImage(Constant.IMG_PATH_PRE+"boss/bullet/boss_bullet0"+(i+1)+".png"));
+
         }
     }
 }

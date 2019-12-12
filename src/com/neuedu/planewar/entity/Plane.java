@@ -48,7 +48,6 @@ public class Plane extends PlaneWarObject {
         this.x = x;
         this.y = y;
         this.pwc = pwc;
-//        this.img = ImageUtil.images.get("myplane");
         this.width = imgs[0].getWidth(null);
         this.height = imgs[0].getHeight(null);
         this.speed = 10;

@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Boss extends PlaneWarObject{
 
-    public static Image[] images = new Image[2];
+    public static Image[] images = new Image[3];
 
     static{
         for (int i = 0; i < images.length; i++) {
@@ -16,6 +16,26 @@ public class Boss extends PlaneWarObject{
         }
     }
     public Boss(){}
+    int count = 0;
+
+    static Random r = new Random();
+
+    boolean good = false;
+
+    /**
+     * Boss的血量
+     * @param g
+     */
+    public int HP = 1000;
+    public double maxHP = HP;
+
+    public int getHP() {
+        return HP;
+    }
+
+    public void setHP(int HP) {
+        this.HP = HP;
+    }
 
     public Boss(PlanWarClient pwc,int x,int y){
         this.pwc = pwc;
@@ -26,11 +46,7 @@ public class Boss extends PlaneWarObject{
         this.height = images[0].getHeight(null);
     }
 
-    int count = 0;
 
-    static Random r = new Random();
-
-    boolean good = false;
 
     @Override
     public void draw(Graphics g) {
@@ -40,23 +56,41 @@ public class Boss extends PlaneWarObject{
         g.drawImage(images[count],x,y,null);
         count++;
         move();
+        if (r.nextInt(1000)>=900){
+            shoot2();
+        }
+        bb.draw(g);
     }
-
     @Override
     public void move() {
         this.x -= speed;
-        if (x == 800){
+        if (x == 1150){
             speed = 0;
-            if (speed == 0){
-                this.y -= speed;
-                if (y == 0){
-                    this.y += speed;
-                }
-            }
         }
     }
-//    public void shoot(){
-//        Bullet bullet = new Bullet(pwc,this.x+this.width,this.y+height/2,good);
-//        this.pwc.bullets.add(bullet);
-//    }
+    public void shoot2(){
+        BossBullet bossBullet = new BossBullet(pwc,this.x,this.y+this.height/2,good);
+        this.pwc.bossBullets.add(bossBullet);
+    }
+
+    public BossBloodBar bb = new BossBloodBar();
+    /**
+     * 血条的内部类
+     */
+    class BossBloodBar {
+        public void draw(Graphics g) {
+            Color c = g.getColor();
+            if (HP > (maxHP * 0.7) && HP<=maxHP){
+                g.setColor(Color.GREEN);
+            }else if(HP > (maxHP * 0.3) && HP<=(maxHP * 0.7)){
+                g.setColor(Color.ORANGE);
+            }else{
+                g.setColor(Color.RED);
+            }
+            g.drawRect(x,y-10,width,10);
+            g.fillRect(x,y-10,(int)(width * (HP / maxHP)),10);
+            g.setColor(c);
+        }
+    }
+
 }

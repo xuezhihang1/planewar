@@ -24,7 +24,7 @@ public class EnemyPlane extends PlaneWarObject{
         this.pwc = pwc;
         this.x = x;
         this.y = y;
-        this.speed = 5;
+        this.speed = 10;
         this.width = images[0].getWidth(null);
         this.height = images[0].getHeight(null);
     }
@@ -37,17 +37,16 @@ public class EnemyPlane extends PlaneWarObject{
 
     @Override
     public void draw(Graphics g) {
-        if (count > 5){
+        if (count > 2){
             count = 0;
         }
         g.drawImage(images[count],x,y,null);
         count++;
+
         move();
         if (r.nextInt(1000) >= 990){
             shoot();
         }
-
-
     }
 
     @Override
@@ -56,7 +55,7 @@ public class EnemyPlane extends PlaneWarObject{
     }
 
     public void shoot(){
-        Bullet bullet = new Bullet(pwc,this.x+this.width,this.y+height/2,good);
+        Bullet bullet = new Bullet(pwc,this.x,this.y+height/2-15,good);
         this.pwc.bullets.add(bullet);
     }
 }

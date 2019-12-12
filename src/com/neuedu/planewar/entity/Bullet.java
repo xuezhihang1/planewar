@@ -29,7 +29,7 @@ public class Bullet extends PlaneWarObject {
         }
         this.width=img.getWidth(null);
         this.height=img.getHeight(null);
-        this.speed=10;
+        this.speed=20;
 
     }
 
@@ -46,7 +46,6 @@ public class Bullet extends PlaneWarObject {
         }else{
             x -=speed;
         }
-
         outOfBounds();
     }
 
@@ -80,12 +79,12 @@ public class Bullet extends PlaneWarObject {
                 this.pwc.items.add(item);
             }
 
-
             this.pwc.bullets.remove(this);
             return true;
         }
         return false;
     }
+
     /**
      * 子弹击打主战飞机
      * @param myplane
@@ -116,4 +115,20 @@ public class Bullet extends PlaneWarObject {
         }
         return false;
     }
+    public boolean hitBoss(Boss boss){
+        if (this.good != boss.good && this.getRectangle().intersects(boss.getRectangle())){
+            //当打到boss时掉血
+            boss.setHP(boss.getHP()-10);
+            if (boss.getHP() >= 0){
+                //boss死亡时，爆炸效果出现
+                Explode e = new Explode(pwc,boss.x,boss.y);
+                this.pwc.explodes.add(e);
+//                this.pwc.bosses.remove(boss);
+            }
+            this.pwc.bullets.remove(this);
+            return true;
+        }
+        return false;
+    }
+
 }
