@@ -18,7 +18,7 @@ public class EnemyPlane extends PlaneWarObject{
         }
     }
 
-    public EnemyPlane(){}
+    public EnemyPlane(PlanWarClient planWarClient, int i, int i1, int i2, int i3){}
 
     public EnemyPlane(PlanWarClient pwc,int x,int y){
         this.pwc = pwc;
@@ -34,6 +34,7 @@ public class EnemyPlane extends PlaneWarObject{
     static Random r =new Random();
 
     boolean good = false;
+
 
     @Override
     public void draw(Graphics g) {
@@ -57,5 +58,13 @@ public class EnemyPlane extends PlaneWarObject{
     public void shoot(){
         Bullet bullet = new Bullet(pwc,this.x,this.y+height/2-15,good);
         this.pwc.bullets.add(bullet);
+    }
+    /**
+     * 判断是否相撞
+     */
+    public void strike(Plane myPlane,EnemyPlane enemyPlane){
+        if (myPlane.getRectangle().intersects(enemyPlane.getRectangle())){
+            myPlane.setHP(myPlane.getHP()-50);
+        }
     }
 }

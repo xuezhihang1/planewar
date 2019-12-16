@@ -16,6 +16,12 @@ public class ImageUtil {
      */
     public static Map<String,Image> images = new HashMap<>();
     static{
+        //开始游戏
+        images.put("start",FrameUtil.getImage(Constant.IMG_PATH_PRE+"startgame/start.png"));
+        //游戏胜利
+        images.put("clear",FrameUtil.getImage(Constant.IMG_PATH_PRE+"gameover/clear.png"));
+        //游戏失败
+        images.put("over",FrameUtil.getImage(Constant.IMG_PATH_PRE+"gameover/over.png"));
         //我方飞机的图片
         for (int i=0;i<3;i++){
             images.put("myplane0"+(i+1),FrameUtil.getImage(Constant.IMG_PATH_PRE+"myplane/0"+(i+1)+".png"));
@@ -43,7 +49,8 @@ public class ImageUtil {
         //Boss子弹图片
         for (int i = 0; i < 3; i++) {
             images.put("boss_bullet0"+(i+1),FrameUtil.getImage(Constant.IMG_PATH_PRE+"boss/bullet/boss_bullet0"+(i+1)+".png"));
-
         }
+        //背景图片
+        images.put("background01",FrameUtil.getImage(Constant.IMG_PATH_PRE+"background/background01.png"));
     }
 }

@@ -27,7 +27,6 @@ public class Plane extends PlaneWarObject {
      */
     public int HP = 100;
     public double maxHP = HP;
-    public int DEF = 100;
 
     public int getHP() {
         return HP;
@@ -35,6 +34,17 @@ public class Plane extends PlaneWarObject {
 
     public void setHP(int HP) {
         this.HP = HP;
+    }
+
+
+    //飞机的防御
+    public int DEF = 0;
+    public int getDEF() {
+        return DEF;
+    }
+
+    public void setDEF(int DEF) {
+        this.DEF = DEF;
     }
 
     public Plane(){};
@@ -224,6 +234,15 @@ public class Plane extends PlaneWarObject {
             if (eatItem(item)){
                 return true;
             }
+        }
+        return false;
+    }
+    /**
+     * 判断是否活着
+     */
+    public boolean life() {
+        if (this.HP > 0){
+            return true;
         }
         return false;
     }

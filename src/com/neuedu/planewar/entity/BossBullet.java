@@ -26,8 +26,8 @@ public class BossBullet extends PlaneWarObject{
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(img,x,y,null);
-        move();
+            g.drawImage(img,x,y,null);
+            move();
     }
 
     @Override
@@ -43,17 +43,17 @@ public class BossBullet extends PlaneWarObject{
         }
     }
     public boolean hitPlane(Plane myplane){
-        if (this.good != myplane.good && this.getRectangle().intersects(myplane.getRectangle())){
-            //当打到我方飞机是掉血
-            myplane.setHP(myplane.getHP()-20);
-            if (myplane.getHP() <= 0){
-                //我方飞机死亡时，爆炸效果出现
-                Explode e = new Explode(pwc,myplane.x,myplane.y);
-                this.pwc.explodes.add(e);
+            if (this.good != myplane.good && this.getRectangle().intersects(myplane.getRectangle())){
+                //当打到我方飞机是掉血
+                myplane.setHP(myplane.getHP()-20);
+                if (myplane.getHP() <= 0){
+                    //我方飞机死亡时，爆炸效果出现
+                    Explode e = new Explode(pwc,myplane.x,myplane.y);
+                    this.pwc.explodes.add(e);
+                }
+                this.pwc.bossBullets.remove(this);
+                return true;
             }
-            this.pwc.bossBullets.remove(this);
-            return true;
-        }
         return false;
     }
 }

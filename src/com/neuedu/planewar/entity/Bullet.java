@@ -84,28 +84,6 @@ public class Bullet extends PlaneWarObject {
         }
         return false;
     }
-
-    /**
-     * 子弹击打主战飞机
-     * @param myplane
-     * @return
-     */
-
-    public boolean hitPlane(Plane myplane){
-        if (this.good != myplane.good && this.getRectangle().intersects(myplane.getRectangle())){
-            //当打到我方飞机是掉血
-            myplane.setHP(myplane.getHP()-10);
-            if (myplane.getHP() <= 0){
-                //我方飞机死亡时，爆炸效果出现
-                Explode e = new Explode(pwc,myplane.x,myplane.y);
-                this.pwc.explodes.add(e);
-            }
-            this.pwc.bullets.remove(this);
-            return true;
-        }
-        return false;
-    }
-
     public boolean hitEnemyPlane(List<EnemyPlane> enemyPlanes){
         for (int i = 0;i<enemyPlanes.size();i++){
             EnemyPlane ep = enemyPlanes.get(i);
@@ -115,18 +93,54 @@ public class Bullet extends PlaneWarObject {
         }
         return false;
     }
-    public boolean hitBoss(Boss boss){
-        if (this.good != boss.good && this.getRectangle().intersects(boss.getRectangle())){
-            //当打到boss时掉血
-            boss.setHP(boss.getHP()-10);
-            if (boss.getHP() >= 0){
-                //boss死亡时，爆炸效果出现
-                Explode e = new Explode(pwc,boss.x,boss.y);
-                this.pwc.explodes.add(e);
-//                this.pwc.bosses.remove(boss);
+
+
+    /**
+     * 子弹击打主战飞机
+     * @param myplane
+     * @return
+     */
+
+    public boolean hitPlane(Plane myplane){
+        if(myplane.life()) {
+            if (this.good != myplane.good && this.getRectangle().intersects(myplane.getRectangle())) {
+                //当打到我方飞机时掉血
+                if (myplane.getDEF() > 100){
+                    myplane.setDEF(myplane.getDEF() - 100);
+                }else{
+                    myplane.setHP(myplane.getHP() - 10);
+                }
+                if (myplane.getHP() <= 0) {
+                    //我方飞机死亡时，爆炸效果出现
+                    Explode e = new Explode(pwc, myplane.x, myplane.y);
+                    this.pwc.explodes.add(e);
+                }
+                this.pwc.bullets.remove(this);
+                return true;
             }
-            this.pwc.bullets.remove(this);
-            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 子弹击打boss
+     * @param boss
+     * @return
+     */
+    public boolean hitBoss(Boss boss){
+        if (boss.life()){
+            if (this.good != boss.good && this.getRectangle().intersects(boss.getRectangle())){
+                //当打到boss时掉血
+                boss.setHP(boss.getHP()-10);
+                if (boss.getHP() <= 0){
+                    //boss死亡时，爆炸效果出现
+                    Explode e = new Explode(pwc,boss.x,boss.y);
+                    this.pwc.explodes.add(e);
+//                this.pwc.bosses.remove(boss);
+                }
+                this.pwc.bullets.remove(this);
+                return true;
+            }
         }
         return false;
     }
